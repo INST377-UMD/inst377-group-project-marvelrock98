@@ -1,0 +1,200 @@
+<html>
+    <head>
+    <title>INST 377 Group 11 Law Firm App</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #D2B48C;
+      }
+  
+      header {
+        background-color: #D2B48C;
+        color: #9d3a3a;
+        padding: 10px;
+        text-align: center;
+      }
+  
+      nav {
+          background-color: #0e0e0e;
+          padding: 10px;
+          text-align: center;
+        }
+
+        nav a {
+          /* Apply the button style to navigation links */
+          background-color: #FFFFFF;
+          border: 1px solid #222222;
+          border-radius: 8px;
+          box-sizing: border-box;
+          color: #222222;
+          cursor: pointer;
+          display: inline-block;
+          font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 20px;
+          margin: 0 10px;
+          outline: none;
+          padding: 13px 23px;
+          position: relative;
+          text-align: center;
+          text-decoration: none;
+          touch-action: manipulation;
+          transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+          user-select: none;
+          -webkit-user-select: none;
+          width: auto;
+        }
+
+        nav a:focus-visible {
+          box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+          transition: box-shadow .2s;
+        }
+
+        nav a:active {
+          background-color: #F7F7F7;
+          border-color: #000000;
+          transform: scale(.96);
+        }
+
+        nav a:disabled {
+          border-color: #DDDDDD;
+          color: #DDDDDD;
+          cursor: not-allowed;
+          opacity: 1;
+        }
+        nav a:hover{
+          background-color:#D2B48C;    
+        }
+        main {
+          padding: 20px;
+        }
+        button {
+          /* Style for other buttons in the main content if needed */
+          padding: 10px;
+          font-size: 16px;
+          margin-right: 10px;
+        }
+        .content-box {
+        background-color: white;
+        padding: 10px;
+        float: left;
+        width:90%;
+        border: 3px solid black;
+        }
+
+  </style>
+    </head>
+    <body>
+
+    <header>
+        <h1><b>J&J Law Firm App</b></h1>
+    </header>
+
+    <nav>
+        <a href="home_page.html" role="button" class="button-56">Home</a>
+        <a href="about_page.html" role="button" class="button-56">About</a>
+        <a href="documentation_page.html" role="button" class="button-56">Documentation</a>
+    </nav>
+    <main>
+      <h1>Documentation</h1>
+      <br>
+      <div class="content-box">
+        <p>J&J Law Firm App</p>
+        <br>
+        <p>   The purpose of our project is to create a dynamic web application that allows 
+          users, specifically lawyers and legal staff, to not only search for information
+          on existing cases but to also input information on new cases. Many law firms 
+          currently rely on manual data entry and record keeping, which is inefficient 
+          and can even result in errors or inaccuracies in the information. We hope 
+          that this application can streamline the process of case information collection 
+          and the management of law firms by making the information easily accessible. 
+          Our application will fetch API from a structured database that we have created 
+          using Supabase. When users input new cases and their information, that 
+          information will be entered into the same structured database to then be called
+          on from the application by others in the future.</p>
+          <br>
+          <p> The devices the website will be targeting are cell phones, computers, and 
+            tablets. Tablets can be placed in the offices of law firms for clients to use 
+            upon arrival. It is of no concern to us whether the devices are iOS or 
+            Android since both will be able to use the web application.</p>
+          <br>
+          <p>User Manual:</p>
+          <br>
+          <p> To use this web application, starting at the home page, users can use the 
+            taskbar to navigate to either the "About" page, which talks about what exactly
+            this app is and its purpose, or they can navigate to the "Documentation" page,
+            which offers guidance for both users of the application as well as future
+            developers of this applications. From the home page, users can also scroll to 
+            find numerous links to recent news articles and can even click on the links to 
+            go to those articles if they are so inclined. The main functionality for this 
+            application starts with clicking the "Click to Get Started!" button on the home 
+            page, it is nice and colorful so it should be hard to miss. After clicking on 
+            the button it should take the user to a new page where they can either enter a
+            new case into our court case database, or they can search for an existing case
+            from the database. To enter a case, the user has to provide both a name for the
+            case, a case number of their choosing, the state that the case took place in, 
+            and the description of the case. Then once the user clicks "Enter", the case
+            should be uploaded straight to our database and can then be searched by users.
+            To search for a case, a user must enter the exact name of the case and then 
+            click "Go". This will result in the name and state of the case being displayed,
+            as well as the description of the case. Additionally, after searching for a 
+            case, a bar chart will appear that displays how many cases were from each US 
+            state.
+            </p>
+            <br>
+            <p>Developer Manual:</p>
+            <br>
+            <p>For future developers who will be working on this project: you can install the 
+              application and all dependencies by opening up the program in VS Code and 
+              installing npm as well as Supabase by entering "npm i" and "npm install 
+              @supabase/supabase-js" into the VS Code terminal. To run the application on a 
+              server; you can simply enter "npm start" into the VS Code terminal, and then 
+              go to a new web browser and search "localhost:4000". You should then reach 
+              the home page of the web application, where you can click the "click to get 
+              started" button to find the options to either enter a new court case or search
+              for one. </p>
+            <br>
+            <p>  When entering a new case, if you right-click the web page and click "Inspect" 
+              beforehand, it will notify you if the case you entered was added. Additionally,
+              if you then search for a case, you will be able to see the whole API that 
+              displays the list of court cases, so you will be able to see if the case you 
+              entered was successfully added to the API.</p>
+            <br>
+            <p> We used two APIs for our server application. One of them was the database API 
+              created using Supabase. We used a Get method to retrieve this API so that the 
+              user could search cases, and we also used a POST method to update the API so that
+              the user could add new court cases to the database. The second API we used was an
+              external API that contained different news articles. We used a fetch API to 
+              retrieve these articles and display the links to them on the home page for 
+              users to be up to date not just on court cases, but what is going on in the 
+              world.</p>
+            <br>
+            <p>The only bug we know of so far is that occasionally when trying to enter a new
+              case, the VS Code terminal will say that there is a duplicated id error and 
+              that for example, id-8 is already used. When this happens we have found that if 
+              you keep clicking the enter case button, the id shown in the error will 
+              increase by 1 until it reaches an ID that is no longer used up, and the case 
+              will be entered. Typically, even when revisiting the page, the ID will stay 
+              where it left off so that you do not have to revisit this error, but 
+              occasionally the id will be back to a lower number for some reason and you will
+              just have to keep clicking the enter button until the case is entered. In terms
+              of future development, one obvious step would be to just continue adding more 
+              cases to the database API so that there are more cases that users can search
+              for. Additionally, we tried using react to display a nice table for the 
+              information of a searched case, but we were unable to get the react 
+              table to work. However, we have left most of our framework for trying to create
+              the table, so if a new developer was up to the challenge, they would have a 
+              decent place to start.</p>
+               
+    </div>
+    </main>
+  
+    <footer>
+        <!-- Add footer content if needed -->
+    </footer>
+
+    </body>
+</html>

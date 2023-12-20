@@ -1,0 +1,293 @@
+<html>
+    <head>
+    <title>INST 377 Group 11 Law Firm App</title>
+    <style>
+        body {
+          font-family: 'Arial', sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #D2B48C;
+        }
+    
+        header {
+          background-color: #D2B48C;
+          color: #9d3a3a;
+          padding: 10px;
+          text-align: center;
+        }
+    
+        nav {
+          background-color: #0e0e0e;
+          padding: 10px;
+          text-align: center;
+        }
+
+        nav a {
+          /* Apply the button style to navigation links */
+          background-color: #FFFFFF;
+          border: 1px solid #222222;
+          border-radius: 8px;
+          box-sizing: border-box;
+          color: #222222;
+          cursor: pointer;
+          display: inline-block;
+          font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 20px;
+          margin: 0 10px;
+          outline: none;
+          padding: 13px 23px;
+          position: relative;
+          text-align: center;
+          text-decoration: none;
+          touch-action: manipulation;
+          transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+          user-select: none;
+          -webkit-user-select: none;
+          width: auto;
+        }
+
+        nav a:focus-visible {
+          box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+          transition: box-shadow .2s;
+        }
+
+        nav a:active {
+          background-color: #F7F7F7;
+          border-color: #000000;
+          transform: scale(.96);
+        }
+
+        nav a:disabled {
+          border-color: #DDDDDD;
+          color: #DDDDDD;
+          cursor: not-allowed;
+          opacity: 1;
+        }
+        nav a:hover{
+          background-color:#D2B48C;    
+        }
+
+
+    main {
+      padding: 20px;
+    }
+
+    button {
+      /* Style for other buttons in the main content if needed */
+      padding: 10px;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+        #errorBox {
+                background-Color: rgb(209, 81, 81);
+                color: white;
+                border: 3px solid black;
+                margin: 10px;
+                padding: 5px;
+        }
+        .content-box {
+            background-color: white;
+            padding: 10px;
+            float: left;
+            width:40%;
+            border: 3px solid black;
+            display: none;
+        }
+        .table-container {
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+    </head>
+    <body>
+
+    <header>
+        <h1><b>J&J Law Firm App</b></h1>
+    </header>
+
+    <nav>
+        <a href="home_page.html" role="button" class="button-56">Home</a>
+        <a href="about_page.html" role="button" class="button-56">About</a>
+        <a href="documentation_page.html" role="button" class="button-56">Documentation</a>
+    </nav>
+
+  <main>
+    <h2>Enter Case Information</h2>
+    <form id="caseForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="caseNumber">Case Number:</label>
+      <input type="text" id="caseNumber" name="caseNumber" required>
+
+      <label for="state">State:</label>
+      <input type="text" id="state" name="state" required>
+      <br><br><br>
+      <label for="description">Description:</label>
+      <textarea id="description" name="descritpion" rows="4" cols="50" required></textarea>
+
+      <button type="button" onclick="saveEntry()">Enter</button>
+    </form>
+    <p id="entryMessage"></p>
+    <hr> <!-- Add a horizontal line -->
+
+    <h2>Search Case Information</h2>
+    <form id="searchForm">
+      <label for="searchName">Name:</label>
+      <input type="text" id="searchName" name="searchName">
+
+      <button type="button" onclick="searchCases()">Go</button>
+    </form>
+    <p id="searchMessage"></p>
+    <div id="info" class="content-box">
+      <h2 id="nameMessage"></h2>
+      <h3 id="stateMessage"></h3>
+      <p id="descriptionMessage"></p>
+    </div>
+    
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  </main>
+
+  <footer>
+    <!-- Add footer content if needed -->
+  </footer>
+
+  <script>
+    async function searchCases() {
+  console.log('Getting Cases');
+  var host = window.location.origin;
+  console.log('Host:', host);
+  try {
+    var test = await fetch(`${host}/cases`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+      },
+    })
+      .then((res) => {
+        console.log('Status:', res.status);
+        if (res.status != 200 && res.status != 304) {
+          throw new Error(JSON.stringify(res.json()));
+        }
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        //increase numeric variable for state based on if it matches the state from the case
+        let targetName = document.getElementById('searchName').value;
+        console.log(targetName);
+        res.forEach((lawCase) => {
+          let caseName = lawCase['Name'];
+          if (caseName != targetName) {
+            return;
+          }
+          var box = document.getElementById('info');
+          box.style.display = 'block';
+          document.getElementById('nameMessage').innerHTML = lawCase.Name;
+          document.getElementById('stateMessage').innerHTML = lawCase.State;
+          document.getElementById('descriptionMessage').innerHTML =
+            lawCase.Description;
+        });
+
+        let chart = Chart.getChart('myChart')
+        if(typeof chart !== 'undefined'){
+          caseChart.destroy();
+        }
+    
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const stateCounts = res.reduce((acc, caseItem) => {
+          const state = caseItem.State;
+          acc[state] = (acc[state] || 0) + 1;
+          return acc;
+        }, {});
+
+        const labels = Object.keys(stateCounts);
+        const data = Object.values(stateCounts);
+
+        caseChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [
+              {
+                label: 'Number of Cases From Each State',
+                data,
+                backgroundColor: 'rgba(0, 0, 204, 0.2)',
+                borderColor: 'rgba(85, 198, 198, 1)',
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      });
+  } catch (error) {
+    console.log('Error:', JSON.parse(error.message));
+    var errorDiv = document.createElement('div');
+    errorDiv.setAttribute('class', 'errorBox');
+    errorDiv.setAttribute('id', 'errorBox');
+
+    var h1 = document.createElement('h1');
+    h1.innerHTML = `Error Occurred:`;
+
+    var p = document.createElement('p');
+    p.innerHTML = `${JSON.parse(error.message).message}`;
+
+    errorDiv.appendChild(h1);
+    errorDiv.appendChild(p);
+    document.body.appendChild(errorDiv);
+  }
+}
+
+
+async function saveEntry() {
+    console.log('Creating Case')
+    var host = window.location.origin;
+
+    var test = await fetch(`${host}/case`, {
+        method: 'POST',
+        body: JSON.stringify({
+            "name": `${document.getElementById('name').value}`,
+            "caseNumber": `${document.getElementById('caseNumber').value}`,
+            "state": `${document.getElementById('state').value}`,
+            "description": `${document.getElementById('description').value}`,
+        }),
+        headers: {
+            "Content-type": "application/json"
+        }
+    })
+}
+
+
+  </script>
+
+</body>
+</html>
